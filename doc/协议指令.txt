@@ -1,0 +1,32 @@
+//485控制指令
+第一个开:01 05 00 00 FF 00 8C 3A  第一个关闭:01 05 00 00 00 00 CD CA
+第二个开:01 05 00 01 FF 00 DD FA  第二个关闭:01 05 00 01 00 00 9C 0A
+第三个开:01 05 00 02 FF 00 2D FA  第三个关闭:01 05 00 02 00 00 6C 0A
+第四个开:01 05 00 03 FF 00 7C 3A  第四个关闭:01 05 00 03 00 00 3D CA
+
+//AT 指令
+开启:
+APP下发: {"switch":{"on":1}}
+设备上报数据： {"sid":"switch","data":{"on":1}}
+APP下发: {"switch1":{"on":1}}
+设备上报数据： {"sid":"switch1","data":{"on":1}}
+APP下发: {"switch2":{"on":1}}
+设备上报数据： {"sid":"switch2","data":{"on":1}}
+APP下发: {"switch2":{"on":1}}
+设备上报数据： {"sid":"switch2","data":{"on":1}}
+APP下发: {"switch3":{"on":1}}
+设备上报数据： {"sid":"switch3","data":{"on":1}}
+关闭:
+APP下发: {"switch":{"on":0}}
+设备上报数据： {"sid":"switch","data":{"on":0}}
+APP下发: {"switch1":{"on":0}}
+设备上报数据： {"sid":"switch1","data":{"on":0}}
+APP下发: {"switch2":{"on":0}}
+设备上报数据： {"sid":"switch2","data":{"on":0}}
+APP下发: {"switch2":{"on":0}}
+设备上报数据： {"sid":"switch2","data":{"on":0}}
+APP下发: {"switch3":{"on":0}}
+设备上报数据： {"sid":"switch3","data":{"on":0}}
+
+//自动上报wifi模组 电压 电流 功率
+{"numbertype":"numberfor","numberdata":{"numberv":220,"numbera":1.2,"numberw":264}}

@@ -256,7 +256,7 @@ void com_message_post(Queue *que_hd, void(*cb)(uint8_t *buf, uint16_t len), uint
 
 void com_uart_recv_process(uint8_t *buf, uint16_t len)
 {
-	if( len==3 )
+	if( len==2 )
 	{
 		if((buf[0]=='\r')&&(buf[1]=='\n'))//直接过滤掉
 		{
@@ -290,10 +290,7 @@ void com_tx_task_10ms(void)
 	{
 		if(tx_msg->callback)
 		{
-			if(tx_msg->len)
-			{
-				tx_msg->callback(tx_msg->dat, tx_msg->len);
-			}
+			tx_msg->callback(tx_msg->dat, tx_msg->len);
 		}
 		free(tx_msg);
 		tx_msg = NULL;
@@ -327,7 +324,7 @@ void com_rx_task_10ms(void)
 					if( (uart_rx_hd.buf[uart_rx_hd.len-2]=='\r') && (uart_rx_hd.buf[uart_rx_hd.len-1]=='\n') )
 					{
 						uart_rx_hd.buf[uart_rx_hd.len] = 0;
-						com_uart_recv_process(uart_rx_hd.buf, uart_rx_hd.len+1);
+						com_uart_recv_process(uart_rx_hd.buf, uart_rx_hd.len);
 						uart_rx_hd.len = 0;
 						uart_rx_hd.timeout = 0;
 					}
