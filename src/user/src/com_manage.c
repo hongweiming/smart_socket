@@ -185,7 +185,7 @@ void cmd_putchar_sw4_on(uint8_t *buf, uint16_t len)
 }
 
 typedef struct{
-	uint8_t *cmd;
+	char *cmd;
 	void (*docmd)(uint8_t *buf, uint16_t len);
 }cmd_table_t;
 
@@ -212,7 +212,7 @@ void com_rx_message_analy(uint8_t *buf, uint16_t len)
 
 	for(i=0; i<table_size; i++ )
 	{
-		if(strncmp((char *)buf,(char *)(cmd_table[i].cmd),strlen((char *)(cmd_table[i].cmd))) == 0)
+		if(strncmp((char *)buf,cmd_table[i].cmd,strlen(cmd_table[i].cmd)) == 0)
 		{
 			cmd = &cmd_table[i];
 			break;
