@@ -34,7 +34,7 @@ static _op_ Op[OS_MAX_TASKS] =
 {
         {0,     5000*MS,    NULL/*com_timer_task*/},
         {0,     500*MS,     led_user_test},
-        {0,     10*MS,      com_tx_task_10ms},
+        {0,     50*MS,      com_tx_task_10ms},
         {0,     10*MS,      com_rx_task_10ms},
         {0,     10*MS,      com_oam_task}
 };

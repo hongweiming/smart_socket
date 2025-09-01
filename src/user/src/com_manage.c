@@ -113,7 +113,27 @@ void com_report_switch_state(sw_ch_e ch, uint8_t on_off_cmd)
 	if( ch >= SW_MAX ) return;
 
 	uint8_t buf[100];
-	snprintf((char *)buf, 100, "AT+REPORT=switch,{\"on\":%d}\r\n", on_off_cmd);
+	if(ch==SW_ALL)
+	{
+		for(sw_ch_e i=SW_ALL; i<SW_MAX; i++)
+		{
+			if(i==SW_ALL)
+			{
+				snprintf((char *)buf, 100, "AT+REPORT=switch,{\"on\":%d}\r\n", on_off_cmd);
+			}
+			else
+			{
+				snprintf((char *)buf, 100, "AT+REPORT=switch%d,{\"on\":%d}\r\n", i,on_off_cmd);
+			}
+			com_message_post(&tx_mq_hd, usart2_send_to_wifi, buf, strlen((char *)buf));
+		}
+	}
+	else
+	{
+		snprintf((char *)buf, 100, "AT+REPORT=switch%d,{\"on\":%d}\r\n", ch,on_off_cmd);
+		com_message_post(&tx_mq_hd, usart2_send_to_wifi, buf, strlen((char *)buf));
+	}
+
 	// if( ch==SW_ALL)
 	// {
 	// 	snprintf((char *)buf, 100, "AT+REPORT={\"sid\":\"switch\",\"data\":{\"on\":%d}}\r\n", on_off_cmd);
@@ -122,7 +142,7 @@ void com_report_switch_state(sw_ch_e ch, uint8_t on_off_cmd)
 	// {
 	// 	snprintf((char *)buf, 100, "AT+REPORT={\"sid\":\"switch%d\",\"data\":{\"on\":%d}}\r\n", ch,on_off_cmd);
 	// }
-	com_message_post(&tx_mq_hd, usart2_send_to_wifi, buf, strlen((char *)buf));
+	// com_message_post(&tx_mq_hd, usart2_send_to_wifi, buf, strlen((char *)buf));
 }
 //MCU上报 电压 电流 功率
 void com_report_vaw(uint16_t v, float a, uint16_t w)
